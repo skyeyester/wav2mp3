@@ -1,4 +1,4 @@
-#include "mutex.h"
+#include "mymutex.h"
 
 #include <system_error>
 
@@ -11,7 +11,7 @@
 using namespace std;
 
 namespace wav2mp3 {
-class mutex::impl
+class mymutex::impl
 {
 public:
   impl()
@@ -28,21 +28,21 @@ private:
   pthread_mutex_t mutex_;
 };
 
-mutex::mutex()
+mymutex::mymutex()
   : impl_{ make_unique<impl>() }
 {
 }
 
-mutex::~mutex() = default;
+mymutex::~mymutex() = default;
 
 void
-mutex::lock()
+mymutex::lock()
 {
   impl_->lock();
 }
 
 void
-mutex::unlock()
+mymutex::unlock()
 {
   impl_->unlock();
 }

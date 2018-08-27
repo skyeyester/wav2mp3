@@ -1,13 +1,13 @@
 #include <memory>
 
 namespace wav2mp3 {
-class mutex
+class mymutex
 {
 public:
-  mutex();
-  mutex(mutex const& other) = delete;
-  mutex& operator=(mutex const& other) = delete;
-  ~mutex();
+  mymutex();
+  mymutex(mymutex const& other) = delete;
+  mymutex& operator=(mymutex const& other) = delete;
+  ~mymutex();
 
   void lock();
   void unlock();

@@ -1,5 +1,5 @@
 #include "lock_guard.h"
-#include "mutex.h"
+#include "mymutex.h"
 
 namespace wav2mp3 {
 template <class T>
@@ -14,12 +14,12 @@ public:
   template <class F>
   auto operator()(F f) const
   {
-    lock_guard<mutex> hold{ m_ };
+    lock_guard<mymutex> hold{ m_ };
     return f(t_);
   }
 
 private:
   mutable T     t_;
-  mutable mutex m_;
+  mutable mymutex m_;
 };
 }

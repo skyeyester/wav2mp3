@@ -1,9 +1,9 @@
 namespace wav2mp3 {
-template <class Mutex>
+template <class MyMutex>
 class lock_guard
 {
 public:
-  explicit lock_guard(Mutex& m)
+  explicit lock_guard(MyMutex& m)
     : m_{ m }
   {
     m_.lock();
@@ -14,6 +14,6 @@ public:
   lock_guard& operator=(lock_guard const& other) = delete;
 
 private:
-  Mutex& m_;
+  MyMutex& m_;
 };
 }
