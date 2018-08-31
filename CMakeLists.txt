@@ -27,6 +27,8 @@ else() #other Unix-lile or Linux
   set(THREADS_PREFER_PTHREAD_FLAG ON)
   find_package(Threads REQUIRED)
   set(libraries lame Threads::Threads stdc++fs)
+  set(CMAKE_C_COMPILER /usr/bin/gcc-6)
+  set(CMAKE_CXX_COMPILER /usr/bin/g++-6)
 endif()
 
 add_executable(${PROJECT_NAME} ${sources} ${headers} src/main.cpp)

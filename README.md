@@ -30,6 +30,6 @@ A commandline application that encodes a set of WAV files to MP3 on both Unix/Wi
 
 * required a compiler with c++14 support. however, i didn't use `<thread>` and `<atomic>` due to the abovementioned restrictions
 
-* tested with Google Test and clang-703.0.31
+* tested with Google Test, Visual Studio 2015 with WinSDK8 on Windows, GNU C 6.0 on Linux and clang-703.0.31 on Mac
 
 * added a CMakeLists.txt for all platform configurations
