@@ -6,6 +6,7 @@ namespace wav2mp3 {
 class pcm
 {
 public:
+  typedef unsigned char  sample8;
   typedef short sample;
   typedef int   samplerate;
 
