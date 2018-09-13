@@ -6,6 +6,9 @@
 #include <iostream>
 #include <istream>
 
+//uncomment if want to print log
+//#define DEBUG
+
 using namespace std;
 
 namespace wav2mp3 {
@@ -13,13 +16,15 @@ namespace wav2mp3 {
 istream&
 operator>>(istream& istr, pcm& data)
 {
-  //debug
+
+#ifdef DEBUG
   cout<<"Enter PCM::operator>>"<<endl;
+#endif
 
   wave_header header;
   istr >> header;
 
-  //debug
+#ifdef DEBUG
   cout<<"RIFF="<<header.riff<<endl;
   cout<<"WAVE="<<header.wave<<endl;
   cout<<"Audio Format="<<header.audio_format<<endl;
@@ -27,6 +32,7 @@ operator>>(istream& istr, pcm& data)
   cout<<"Data Size="<<header.data_size<<endl;
   cout<<"Sample per Second="<<header.samples_per_second<<endl;
   cout<<"Number of Channel="<<header.number_of_channels<<endl;
+#endif
 
   if (header.audio_format != wave_header::PCM){
     throw wave_format_exception("Unsupported Audio format");
@@ -54,16 +60,19 @@ operator>>(istream& istr, pcm& data)
     throw wave_format_exception("Unsupported Sample Rate format");
   }
 
-  //debug
+#ifdef DEBUG
   cout<<"Check Data Size="<<header.data_size<<endl;
   cout<<"Check PCM Sample8 Size="<<sizeof(pcm::sample8)<<endl;
   cout<<"Check PCM Sample Size="<<sizeof(pcm::sample)<<endl;
   cout<<"Check PCM Sample Number="<<number_of_samples<<endl;
+#endif
 
   vector<pcm::sample> samples;
   samples.resize(number_of_samples);
 
+#ifdef DEBUG
   cout<<"start format convert"<<endl;
+#endif
 
   if (header.bits_per_sample == 8) {
 
@@ -89,7 +98,9 @@ operator>>(istream& istr, pcm& data)
     throw wave_format_exception("Unsupported Sample Rate format");
   }
 
+#ifdef DEBUG
   cout<<"stop format convert"<<endl;
+#endif
 
   swap(data.samples_, samples);
   data.samples_per_second_ =
@@ -97,8 +108,9 @@ operator>>(istream& istr, pcm& data)
   data.number_of_channels_ =
     static_cast<pcm::channels>(header.number_of_channels);
 
-  //debug
+#ifdef DEBUG
   cout<<"Leave PCM::operator>>"<<endl;
+#endif
   return istr;
 }
 }

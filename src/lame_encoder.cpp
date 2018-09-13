@@ -4,7 +4,11 @@
 
 #include <lame.h>
 
+#include <iostream>
 #include <memory>
+
+//uncomment if want to print log
+//#define DEBUG
 
 using namespace std;
 
@@ -57,9 +61,17 @@ encode_mono(encoder_engine* engine, std::vector<pcm::sample> samples)
   if (encoded_size < 0)
     return {};
 
+#ifdef DEBUG
+  cout<<"Encode Size before= "<<encoded_size<<endl;
+#endif
+
   encoded_size +=
     lame_encode_flush(engine, buffer.data() + encoded_size,
                       static_cast<int>(buffer.size() - encoded_size));
+#ifdef DEBUG
+  cout<<"Buffer Size= "<<buffer.size()<<endl;
+  cout<<"Encode Size after= "<<encoded_size<<endl;
+#endif
 
   return { buffer.begin(), buffer.begin() + encoded_size };
 }
