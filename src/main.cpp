@@ -10,6 +10,9 @@
 #include <iostream>
 #include <system_error>
 
+//uncomment if want to print log
+//#define DEBUG
+
 using namespace std;
 using namespace wav2mp3;
 
@@ -31,6 +34,10 @@ process(vector<path> const& collection)
 
   size_t const hardware_concurrency = thread::hardware_concurrency();
   size_t const thread_count = min(hardware_concurrency, collection.size());
+
+  #ifdef DEBUG
+    cout << "Hardware Concurrency= " << hardware_concurrency << endl;
+  #endif
 
   vector<thread> threads;
   threads.reserve(thread_count);

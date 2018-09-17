@@ -6,6 +6,10 @@
 #include <cctype>
 #include <experimental/filesystem>
 #include <fstream>
+#include <iostream>
+
+//uncomment if want to print log
+//#define DEBUG
 
 using namespace std;
 using experimental::filesystem::directory_iterator;
@@ -50,10 +54,15 @@ wave_files(path const& directory)
 {
   vector<path> files;
 
-  for (auto entry : directory_entries(directory))
-    if (has_wave_file_extension(entry) && is_wave_file(entry))
-      files.push_back(entry);
-
+  for (auto entry : directory_entries(directory)) {
+#ifdef DEBUG
+	  cout << "File Entry= " << entry.c_str() << endl;
+	  cout << "has_wave_file_extension= " << has_wave_file_extension(entry) << endl;
+	  cout << "is_wave_file Entry= " << is_wave_file(entry) << endl;
+#endif
+	  if (has_wave_file_extension(entry) && is_wave_file(entry))
+		  files.push_back(entry);
+  }
   return files;
 }
 }
