@@ -50,11 +50,11 @@ operator>>(istream& istr, pcm& data)
   } else if (header.bits_per_sample == 12) {
     //TODO
   } else if (header.bits_per_sample == 16) {
-      //for CD
-      assert(header.data_size == sizeof(pcm::sample) * number_of_samples);
+    //for CD
+    assert(header.data_size == sizeof(pcm::sample) * number_of_samples);
   } else if (header.bits_per_sample == 24) {
-   //TODO
-   //for DVD
+	//for DVD
+	assert(header.data_size == bytes_per_sample * number_of_samples);
   }
   else {
     throw wave_format_exception("Unsupported Sample Rate format");
@@ -92,7 +92,20 @@ operator>>(istream& istr, pcm& data)
       if (!istr.read(reinterpret_cast<char*>(samples.data()), header.data_size))
           throw wave_format_exception("Unexpected end of file");
   } else if (header.bits_per_sample == 24) {
-   //TODO
+	//read byte one by one
+	vector<pcm::sample8> sample8s;
+	sample8s.resize(header.data_size);
+	if (!istr.read(reinterpret_cast<char*>(sample8s.data()), header.data_size))
+		throw wave_format_exception("Unexpected end of file");
+	//do format convert
+	short temp = 0;
+	int index = 0;
+	for (int i = 0; i < sample8s.size(); i += 3) {
+		temp = ((short)(sample8s.at(i+2) - 0x80) << 8)+ ((short)(sample8s.at(i+1) - 0x80));
+		//skipped the first bytes in every sample because little-endian
+		index = i / 3;
+		samples.at(index) = temp;
+	}
   }
   else {
     throw wave_format_exception("Unsupported Sample Rate format");
