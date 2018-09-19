@@ -26,7 +26,7 @@ A commandline application that encodes a set of WAV files to MP3 on both Unix/Wi
 
 # Implementation notes
 
-* supported 16-bit pcm wave files only
+* supported 8-bits, 16-bits and 24-bits pcm wave files
 
 * required a compiler with c++14 support. however, i didn't use `<thread>` and `<atomic>` due to the abovementioned restrictions
 
