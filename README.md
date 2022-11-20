@@ -1,6 +1,6 @@
 # Purpose
 
-A commandline application that encodes a set of WAV files to MP3 on both Unix/Windows based platform.
+A commandline application implemented by C++ that encodes a set of WAV files to MP3 on both Unix/Windows based platform.
  
 # Requirements
  
